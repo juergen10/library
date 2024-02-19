@@ -3,10 +3,10 @@
 
 namespace App\Repositories;
 
-use App\Models\{{modelName}};
+use App\Models\User;
 
 
-class {{modelName}}Repository implements {{modelName}}RepositoryInterface
+class UserRepository implements UserRepositoryInterface
 {
     /**
      * Get's a record by it's ID
@@ -16,7 +16,7 @@ class {{modelName}}Repository implements {{modelName}}RepositoryInterface
      */
     public function get($id)
     {
-        return {{modelName}}::find($id);
+        return User::find($id);
     }
 
     /**
@@ -26,7 +26,7 @@ class {{modelName}}Repository implements {{modelName}}RepositoryInterface
      */
     public function all()
     {
-        return {{modelName}}::all();
+        return User::all();
     }
 
     /**
@@ -36,7 +36,7 @@ class {{modelName}}Repository implements {{modelName}}RepositoryInterface
      */
     public function delete($id)
     {
-        {{modelName}}::destroy($id);
+        User::destroy($id);
     }
 
     /**
@@ -47,6 +47,6 @@ class {{modelName}}Repository implements {{modelName}}RepositoryInterface
      */
     public function update($id, array $data)
     {
-        {{modelName}}::find($id)->update($data);
+        User::find($id)->update($data);
     }
 }
