@@ -46,7 +46,15 @@ class CategoryRepository implements CategoryRepositoryInterface
      */
     public function update($id, array $data)
     {
-        Category::find($id)->update($data);
+        $category = new Category();
+
+        foreach ($data as $key => $value) {
+            $category->{$key} = $value;
+        }
+
+        $category->save();
+
+        return $category;
     }
 
     public function paginate(int $perPage, int $page, $search = null)

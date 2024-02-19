@@ -55,4 +55,32 @@ class CategoryController extends Controller
 
         return Response::send(200, $category);
     }
+
+    public function update(int $id, Request $request)
+    {
+        $rules = Validator::make($request->all(), [
+            'name' => 'required|unique:categories',
+        ]);
+
+        if ($rules->fails()) {
+            return Response::send(422, $rules->errors());
+        }
+
+        $category = $this->category->get($id);
+
+        if (null == $category) {
+            return Response::message('resource_not_found');
+        }
+
+        $data['name'] = $request->name;
+        $category = $this->category->update($id, $data);
+
+        return Response::send(200, $category);
+    }
+    public function delete(int $id)
+    {
+        $category = $this->category->delete($id);
+
+        return Response::send(204, $category);
+    }
 }
