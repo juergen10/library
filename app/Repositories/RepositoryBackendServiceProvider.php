@@ -13,8 +13,8 @@ class RepositoryBackendServiceProvider extends ServiceProvider
             /*
             * Register your Repository classes and interface here
             **/
-            'App\Repositories\UserRepositoryInterface',
-            'App\Repositories\UserRepository'
+            UserRepositoryInterface::class,
+            UserRepository::class
         );
     }
 }

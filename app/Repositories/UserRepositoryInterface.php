@@ -32,4 +32,11 @@ interface UserRepositoryInterface
      * @param array
      */
     public function update($id, array $data);
+
+    /**
+     * Ger a record by email.
+     *
+     * @param string
+     */
+    public function getByEmail(string $email);
 }
