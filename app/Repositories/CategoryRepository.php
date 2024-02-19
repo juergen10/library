@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
+use App\Models\Category;
 
 
-class UserRepository implements UserRepositoryInterface
+class CategoryRepository implements CategoryRepositoryInterface
 {
     /**
      * Get's a record by it's ID
@@ -15,7 +15,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function get($id)
     {
-        return User::find($id);
+        return Category::find($id);
     }
 
     /**
@@ -25,7 +25,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function all()
     {
-        return User::all();
+        return Category::all();
     }
 
     /**
@@ -35,7 +35,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function delete($id)
     {
-        User::destroy($id);
+        Category::destroy($id);
     }
 
     /**
@@ -46,11 +46,12 @@ class UserRepository implements UserRepositoryInterface
      */
     public function update($id, array $data)
     {
-        User::find($id)->update($data);
+        Category::find($id)->update($data);
     }
 
-    public function getByEmail(string $email)
+    public function paginate(int $perPage, int $page, $search = null)
     {
-        return User::where('email', $email)->first();
+        return Category::where('name', 'like', '%' . $search . '%')
+            ->paginate($perPage, ['*'], 'page', $page);
     }
 }
