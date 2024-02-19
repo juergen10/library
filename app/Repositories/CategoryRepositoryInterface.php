@@ -42,4 +42,6 @@ interface CategoryRepositoryInterface
      */
 
     public function paginate(int $perPage, int $page, $search = null);
+
+    public function store(array $data);
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Response\Response;
@@ -30,16 +29,16 @@ class AuthController extends Controller
             return Response::send(422, $rules->errors());
         }
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->save();
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
+        $data['password'] = Hash::make($request->password);
+
+        $user = $this->user->store($data);
 
         $success['token'] =  $user->createToken('library_app')->plainTextToken;
         $success['name'] =  $user->name;
 
-        return Response::send(200, $success, 'user_register_successfully');
+        return Response::send(200, $success);
     }
 
     public function login(Request $request)

@@ -54,4 +54,9 @@ class CategoryRepository implements CategoryRepositoryInterface
         return Category::where('name', 'like', '%' . $search . '%')
             ->paginate($perPage, ['*'], 'page', $page);
     }
+
+    public function store(array $category)
+    {
+        return Category::create($category);
+    }
 }

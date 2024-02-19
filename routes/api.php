@@ -30,4 +30,6 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['prefix' => 'categories'], function () {
     Route::get('/', [CategoryController::class, 'index']);
+    Route::post('/', [CategoryController::class, 'store']);
+    Route::get('/{id}', [CategoryController::class, 'show']);
 });

@@ -39,4 +39,6 @@ interface UserRepositoryInterface
      * @param string
      */
     public function getByEmail(string $email);
+
+    public function store(array $user);
 }
