@@ -12,5 +12,7 @@ class RepositoryBackendServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->bind(AuthorRepositoryInterface::class, AuthorRepository::class);
+        $this->app->bind(BookRepositoryInterface::class, BookRepository::class);
+        $this->app->bind(BookAuthorRepositoryInterface::class, BookAuthorRepository::class);
     }
 }

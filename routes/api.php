@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PretestController;
 use Illuminate\Support\Facades\Route;
@@ -43,4 +44,8 @@ Route::group(['prefix' => 'authors'], function () {
     Route::get('/{id}', [AuthorController::class, 'show']);
     Route::put('/{id}', [AuthorController::class, 'update']);
     Route::delete('/{id}', [AuthorController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'books'], function () {
+    Route::post('/', [BookController::class, 'store']);
 });
