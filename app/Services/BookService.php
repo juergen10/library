@@ -17,11 +17,19 @@ class BookService
         $this->book = $book;
         $this->bookAuthor = $bookAuthor;
     }
-    public function storeBook(array $book, array $bookAuthor)
+    public function storeBook(array $book, array $bookAuthors)
     {
+        $authors = [];
         $book = $this->book->store($book);
-        $bookAuthor['book_id'] = $book->id;
-        $this->bookAuthor->store($bookAuthor);
+
+        foreach ($bookAuthors as $bookAuthor) {
+            $authors[] = [
+                'author_id' => $bookAuthor,
+                'book_id' => $book->id,
+            ];
+        }
+
+        $this->bookAuthor->store($authors);
 
         return $this->book->get($book->id);
     }

@@ -52,6 +52,6 @@ class BookAuthorRepository implements BookAuthorRepositoryInterface
 
     public function store(array $bookAuthor)
     {
-        return BookAuthor::create($bookAuthor);
+        return BookAuthor::insert($bookAuthor);
     }
 }

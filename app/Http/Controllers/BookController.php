@@ -34,7 +34,8 @@ class BookController extends Controller
             'isbn' => 'required|unique:books',
             'publication_date' => 'required|date',
             'category_id' => 'required|exists:categories,id',
-            'author_id' => 'required|exists:authors,id',
+            'author_ids' => 'required|array',
+            'author_ids.*' => 'required|exists:authors,id',
             'stock' => 'required|integer'
         ]);
 
@@ -49,9 +50,8 @@ class BookController extends Controller
         $book['stock'] = $request->stock;
         $book['description'] = $request->description;
 
-        $bookAuthor['author_id'] = $request->author_id;
-
-        $book = $this->bookService->storeBook($book, $bookAuthor);
+        $bookAuthors = $request->author_ids;
+        $book = $this->bookService->storeBook($book, $bookAuthors);
 
         return Response::send(200, $book);
     }
