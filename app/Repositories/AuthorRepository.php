@@ -1,11 +1,12 @@
 <?php
 
+
 namespace App\Repositories;
 
-use App\Models\Category;
+use App\Models\Author;
 
 
-class CategoryRepository implements CategoryRepositoryInterface
+class AuthorRepository implements AuthorRepositoryInterface
 {
     /**
      * Get's a record by it's ID
@@ -15,7 +16,7 @@ class CategoryRepository implements CategoryRepositoryInterface
      */
     public function get($id)
     {
-        return Category::find($id);
+        return Author::find($id);
     }
 
     /**
@@ -25,7 +26,7 @@ class CategoryRepository implements CategoryRepositoryInterface
      */
     public function all()
     {
-        return Category::all();
+        return Author::all();
     }
 
     /**
@@ -35,7 +36,7 @@ class CategoryRepository implements CategoryRepositoryInterface
      */
     public function delete($id)
     {
-        Category::destroy($id);
+        Author::destroy($id);
     }
 
     /**
@@ -46,25 +47,26 @@ class CategoryRepository implements CategoryRepositoryInterface
      */
     public function update($id, array $data)
     {
-        $category = Category::find($id);
+        $author = Author::find($id);
 
         foreach ($data as $key => $value) {
-            $category->{$key} = $value;
+            $author->{$key} = $value;
         }
 
-        $category->save();
+        $author->save();
 
-        return $category;
+        return $author;
     }
 
     public function paginate(int $perPage, int $page, $search = null)
     {
-        return Category::where('name', 'like', '%' . $search . '%')
+        return Author::where('first_name', 'like', '%' . $search . '%')
+            ->orWhere('last_name', 'like', '%' . $search . '%')
             ->paginate($perPage, ['*'], 'page', $page);
     }
 
-    public function store(array $category)
+    public function store(array $author)
     {
-        return Category::create($category);
+        return Author::create($author);
     }
 }

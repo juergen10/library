@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PretestController;
 use Illuminate\Support\Facades\Route;
@@ -34,4 +35,12 @@ Route::group(['prefix' => 'categories'], function () {
     Route::get('/{id}', [CategoryController::class, 'show']);
     Route::put('/{id}', [CategoryController::class, 'update']);
     Route::delete('/{id}', [CategoryController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'authors'], function () {
+    Route::post('/', [AuthorController::class, 'store']);
+    Route::get('/', [AuthorController::class, 'index']);
+    Route::get('/{id}', [AuthorController::class, 'show']);
+    Route::put('/{id}', [AuthorController::class, 'update']);
+    Route::delete('/{id}', [AuthorController::class, 'delete']);
 });

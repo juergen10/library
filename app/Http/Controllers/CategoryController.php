@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Constants\PaginationConstant;
 use App\Repositories\CategoryRepositoryInterface;
 use App\Response\Response;
 use Illuminate\Http\Request;
@@ -17,11 +17,10 @@ class CategoryController extends Controller
         $this->category = $category;
     }
 
-
     public function index(Request $request)
     {
-        $page = $request->get('page', Category::DEFAULT_PAGE);
-        $perPage = $request->get('perPage', Category::DEFAULT_PER_PAGE);
+        $page = $request->get('page', PaginationConstant::DEFAULT_PAGE);
+        $perPage = $request->get('perPage', PaginationConstant::DEFAULT_PER_PAGE);
         $search = $request->get('q');
 
         $categories = $this->category->paginate($perPage, $page, $search);
@@ -77,6 +76,7 @@ class CategoryController extends Controller
 
         return Response::send(200, $category);
     }
+
     public function delete(int $id)
     {
         $category = $this->category->delete($id);
