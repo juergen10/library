@@ -17,6 +17,14 @@ class BookService
         $this->book = $book;
         $this->bookAuthor = $bookAuthor;
     }
+
+    public function index(array $data)
+    {
+        $books = $this->book->paginate($data);
+        
+        return $books;
+    }
+
     public function storeBook(array $book, array $bookAuthors)
     {
         $authors = [];

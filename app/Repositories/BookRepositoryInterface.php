@@ -34,4 +34,6 @@ interface BookRepositoryInterface
     public function update($id, array $data);
 
     public function store(array $book);
+
+    public function paginate(array $data);
 }

@@ -57,4 +57,30 @@ class BookRepository implements BookRepositoryInterface
     {
         return Book::create($book);
     }
+
+    public function paginate(array $data)
+    {
+        $getBooks = Book::with('category', 'authors');
+
+        if (isset($data['title'])) {
+            $getBooks->where('title', 'like', '%' . $data['title'] . '%');
+        }
+
+        if (isset($data['categories'])) {
+            $getBooks->whereIn('category_id', $data['categories']);
+        }
+
+        if (isset($data['author'])) {
+            $author = $data['author'];
+
+            $getBooks->whereHas('authors', function ($query) use ($author) {
+                $query->where('authors.first_name', 'like', '%' . $author . '%');
+                $query->orWhere('authors.last_name', 'like', '%' . $author . '%');
+            });
+        }
+
+        $books = $getBooks->paginate($data['perPage'], ['*'], 'page', $data['page']);
+
+        return $books;
+    }
 }

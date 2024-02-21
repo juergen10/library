@@ -47,6 +47,7 @@ Route::group(['prefix' => 'authors'], function () {
 });
 
 Route::group(['prefix' => 'books'], function () {
+    Route::get('/', [BookController::class, 'index']);
     Route::post('/', [BookController::class, 'store']);
     Route::get('/{id}', [BookController::class, 'show']);
     Route::delete('/{id}', [BookController::class, 'delete']);

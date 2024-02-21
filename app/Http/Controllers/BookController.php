@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\PaginationConstant;
 use App\Response\Response;
 use App\Services\BookService;
 use Illuminate\Http\Request;
@@ -19,9 +20,27 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $data = [];
+        $data['page'] = $request->get('page', PaginationConstant::DEFAULT_PAGE);
+        $data['perPage'] = $request->get('perPage', PaginationConstant::DEFAULT_PER_PAGE);
+
+        if ($request->has('title') && null !== $request->get('title')) {
+            $data['title'] = $request->get('title');
+        }
+
+        if ($request->has('categories') && null !== $request->get('categories')) {
+            $data['categories'] = explode(',', $request->get('categories'));
+        }
+
+        if ($request->has('author') && null !== $request->get('author')) {
+            $data['author'] = $request->get('author');
+        }
+
+        $books = $this->bookService->index($data);
+
+        return Response::send(200, $books);
     }
 
     /**
