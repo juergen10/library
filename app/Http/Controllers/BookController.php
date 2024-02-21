@@ -59,23 +59,21 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Book $book)
+    public function show(int $id)
     {
-        //
-    }
+        $book = $this->bookService->get($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Book $book)
-    {
-        //
+        if (null == $book) {
+            return Response::message('resource_not_found');
+        }
+
+        return Response::send(200, $book);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBookRequest $request, Book $book)
+    public function update(Request $request, int $id)
     {
         //
     }
@@ -83,8 +81,9 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Book $book)
+    public function destroy(int $id)
     {
-        //
+        $book = $this->bookService->delete($id);
+        return Response::send(204);
     }
 }

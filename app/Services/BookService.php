@@ -33,4 +33,17 @@ class BookService
 
         return $this->book->get($book->id);
     }
+
+    public function get(int $id)
+    {
+        return $this->book->get($id);
+    }
+
+    public function delete(int $id)
+    {
+        //TODO
+        //add validation if book still on loan
+
+        return $this->book->delete($id);
+    }
 }
