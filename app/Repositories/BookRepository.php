@@ -50,7 +50,7 @@ class BookRepository implements BookRepositoryInterface
      */
     public function update($id, array $data)
     {
-        Book::find($id)->update($data);
+        return Book::find($id)->update($data);
     }
 
     public function store(array $book)
@@ -82,5 +82,11 @@ class BookRepository implements BookRepositoryInterface
         $books = $getBooks->paginate($data['perPage'], ['*'], 'page', $data['page']);
 
         return $books;
+    }
+
+    public function getISBN(int $id, string $isbn)
+    {
+        return Book::where('id', '!=', $id)->where('isbn', $isbn)
+            ->first();
     }
 }

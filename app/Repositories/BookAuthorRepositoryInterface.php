@@ -18,12 +18,7 @@ interface BookAuthorRepositoryInterface
      */
     public function all();
 
-    /**
-     * Deletes a record.
-     *
-     * @param int
-     */
-    public function delete($id);
+    public function deleteAuthorBook(int $bookID, array $authors);
 
     /**
      * Updates a record.
@@ -34,4 +29,6 @@ interface BookAuthorRepositoryInterface
     public function update($id, array $data);
 
     public function store(array $bookAuthor);
+
+    public function getBookAuthor(int $authorID, int $bookID);
 }

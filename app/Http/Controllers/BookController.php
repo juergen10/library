@@ -48,6 +48,7 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
+        $book = [];
         $rules = Validator::make($request->all(), [
             'title' => 'required',
             'isbn' => 'required|unique:books',
@@ -94,8 +95,47 @@ class BookController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        //
+        $rules = Validator::make($request->all(), [
+            'title' => 'required',
+            'isbn' => 'required',
+            'publication_date' => 'required|date',
+            'category_id' => 'required|exists:categories,id',
+            'author_ids' => 'required|array',
+            'author_ids.*' => 'required|exists:authors,id',
+            'stock' => 'required|integer'
+        ]);
+
+        if ($rules->fails()) {
+            return Response::send(422, $rules->errors());
+        }
+
+        $findBook = $this->bookService->get($id);
+
+        if (null == $findBook) {
+            return Response::message('resource_not_found');
+        }
+
+        $checkISBN = $this->bookService->getISBN($id, $request->isbn);
+
+        if (null !== $checkISBN) {
+            return Response::message('isbn_already_taken');
+        }
+
+
+        $book = [];
+        $book['title'] = $request->title;
+        $book['isbn'] = $request->isbn;
+        $book['publication_date'] = $request->publication_date;
+        $book['category_id'] = $request->category_id;
+        $book['stock'] = $request->stock;
+        $book['description'] = $request->description;
+
+        $bookAuthors = $request->author_ids;
+        $updateBooks = $this->bookService->edit($id, $book, $bookAuthors);
+
+        return Response::send(200, $updateBooks);
     }
+
 
     /**
      * Remove the specified resource from storage.

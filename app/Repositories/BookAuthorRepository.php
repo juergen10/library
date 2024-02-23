@@ -19,6 +19,11 @@ class BookAuthorRepository implements BookAuthorRepositoryInterface
         return BookAuthor::find($id);
     }
 
+    public function getBookAuthor(int $authorID, int $bookID)
+    {
+        return BookAuthor::where(['author_id' => $authorID, 'book_id' => $bookID])->first();
+    }
+
     /**
      * Get's all records.
      *
@@ -34,9 +39,10 @@ class BookAuthorRepository implements BookAuthorRepositoryInterface
      *
      * @param int
      */
-    public function delete($id)
+    public function deleteAuthorBook(int $bookID, array $authors)
     {
-        BookAuthor::destroy($id);
+        return BookAuthor::where('book_id', $bookID)
+            ->whereNotIn('author_id', $authors)->delete();
     }
 
     /**
