@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LoanController;
 use App\Http\Controllers\PretestController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,4 +53,8 @@ Route::group(['prefix' => 'books'], function () {
     Route::get('/{id}', [BookController::class, 'show']);
     Route::put('/{id}', [BookController::class, 'update']);
     Route::delete('/{id}', [BookController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'loans'], function () {
+    Route::post('/', [LoanController::class, 'store']);
 });
