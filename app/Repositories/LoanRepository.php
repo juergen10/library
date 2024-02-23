@@ -57,6 +57,20 @@ class LoanRepository implements LoanRepositoryInterface
 
     public function getActiveLoanUser(int $userID)
     {
-        return Loan::select('user_id')->where('user_id', $userID)->where('is_return', 1)->first();
+        return Loan::select('user_id')->where('user_id', $userID)->where('is_return', 0)->first();
+    }
+
+    public function paginate(array $data)
+    {
+        $getLoans = Loan::with('user', 'book')
+            ->whereDate('date_loan', '>=', $data['from'])->whereDate('date_loan', '<=', $data['to']);
+
+        if (isset($data['userID'])) {
+            $getLoans->where('user_id', $data['userID']);
+        }
+
+        $loans = $getLoans->paginate($data['perPage'], ['*'], 'page', $data['page']);
+
+        return $loans;
     }
 }

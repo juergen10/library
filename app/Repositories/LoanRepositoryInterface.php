@@ -36,4 +36,6 @@ interface LoanRepositoryInterface
     public function store(array $loans);
 
     public function getActiveLoanUser(int $userID);
+
+    public function paginate(array $data);
 }

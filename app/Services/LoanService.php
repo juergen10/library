@@ -19,6 +19,11 @@ class LoanService
         $this->book = $book;
     }
 
+    public function index(array $data)
+    {
+        return $this->loan->paginate($data);
+    }
+
     public function getActiveLoanUser(int $userID)
     {
         return $this->loan->getActiveLoanUser($userID);

@@ -57,4 +57,5 @@ Route::group(['prefix' => 'books'], function () {
 
 Route::group(['prefix' => 'loans'], function () {
     Route::post('/', [LoanController::class, 'store']);
+    Route::get('/books/', [LoanController::class, 'index']);
 });

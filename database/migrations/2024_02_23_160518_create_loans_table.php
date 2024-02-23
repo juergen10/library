@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('book_id');
             $table->datetime('date_loan');
             $table->datetime('due_date');
-            $table->boolean('is_return')->default(1);
+            $table->boolean('is_return')->default(0);
             $table->timestamps();
         });
     }
