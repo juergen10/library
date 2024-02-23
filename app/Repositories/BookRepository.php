@@ -89,4 +89,9 @@ class BookRepository implements BookRepositoryInterface
         return Book::where('id', '!=', $id)->where('isbn', $isbn)
             ->first();
     }
+
+    public function lockForUpdate(int $bookID)
+    {
+        return Book::where('id', $bookID)->lockForUpdate()->first();
+    }
 }

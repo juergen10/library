@@ -38,4 +38,6 @@ interface BookRepositoryInterface
     public function paginate(array $data);
 
     public function getISBN(int $id, string $isbn);
+
+    public function lockForUpdate(int $bookID);
 }

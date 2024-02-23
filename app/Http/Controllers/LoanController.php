@@ -46,6 +46,13 @@ class LoanController extends Controller
 
         $userID = $request->user_id;
         $loans = $request->loans;
+
+        $userLoanActive = $this->loanService->getActiveLoanUser($userID);
+
+        if (null != $userLoanActive) {
+            return Response::message('user_has_active_loan');
+        }
+
         $saveLoans = $this->loanService->store($userID, $loans);
 
         return Response::send(200, $saveLoans);

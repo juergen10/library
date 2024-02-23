@@ -54,4 +54,9 @@ class LoanRepository implements LoanRepositoryInterface
     {
         return Loan::insert($loans);
     }
+
+    public function getActiveLoanUser(int $userID)
+    {
+        return Loan::select('user_id')->where('user_id', $userID)->where('is_return', 1)->first();
+    }
 }
