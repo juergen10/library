@@ -25,4 +25,9 @@ class Loan extends Model
     {
         return $this->hasOne(Book::class, 'id', 'book_id');
     }
+
+    public function returnBook()
+    {
+        return $this->hasOne(ReturnBook::class, 'id', 'loan_id');
+    }
 }
