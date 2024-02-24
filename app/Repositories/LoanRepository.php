@@ -19,6 +19,14 @@ class LoanRepository implements LoanRepositoryInterface
         return Loan::find($id);
     }
 
+    public function getLoanBook(int $bookID)
+    {
+        return Loan::where([
+            'book_id' => $bookID,
+            'is_return' => 0,
+        ])->first();
+    }
+
     /**
      * Get's all records.
      *
@@ -62,7 +70,7 @@ class LoanRepository implements LoanRepositoryInterface
 
     public function paginate(array $data)
     {
-        $getLoans = Loan::with('user', 'book')
+        $getLoans = Loan::with('user', 'book', 'returnBook')
             ->whereDate('date_loan', '>=', $data['from'])->whereDate('date_loan', '<=', $data['to']);
 
         if (isset($data['userID'])) {

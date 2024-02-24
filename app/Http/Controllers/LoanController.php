@@ -49,10 +49,9 @@ class LoanController extends Controller
     public function store(Request $request)
     {
         $rules = Validator::make($request->all(), [
-            'user_id' => 'required|exists:books,id',
+            'user_id' => 'required|exists:users,id',
             'loans' => 'required|array|max:5',
-            'loans.*.book_id' => ['required', 'distinct', 'exists:books,id', new BookStock],
-            'loans.*.due_date' => ['required', 'date', new LoanDueDate],
+            'loans.*.book_id' => ['required', 'distinct', 'exists:books,id', new BookStock]
         ]);
 
         if ($rules->fails()) {

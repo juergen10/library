@@ -14,6 +14,7 @@ class Loan extends Model
         'book_id',
         'date_loan',
         'due_date',
+        'is_return'
     ];
 
     public function user()
@@ -28,6 +29,6 @@ class Loan extends Model
 
     public function returnBook()
     {
-        return $this->hasOne(ReturnBook::class, 'id', 'loan_id');
+        return $this->hasOne(ReturnBook::class, 'loan_id', 'id');
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\PretestController;
+use App\Http\Controllers\ReturnBookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,12 +51,17 @@ Route::group(['prefix' => 'authors'], function () {
 Route::group(['prefix' => 'books'], function () {
     Route::get('/', [BookController::class, 'index']);
     Route::post('/', [BookController::class, 'store']);
+    Route::group(['prefix' => 'loans'], function () {
+        Route::post('/', [LoanController::class, 'store']);
+        Route::get('/', [LoanController::class, 'index']);
+    });
+    
+    Route::group(['prefix' => 'returns'], function () {
+        Route::post('/', [ReturnBookController::class, 'store']);
+    });
     Route::get('/{id}', [BookController::class, 'show']);
     Route::put('/{id}', [BookController::class, 'update']);
-    Route::delete('/{id}', [BookController::class, 'delete']);
+    Route::delete('/{id}', [BookController::class, 'destroy']);
+
 });
 
-Route::group(['prefix' => 'loans'], function () {
-    Route::post('/', [LoanController::class, 'store']);
-    Route::get('/books/', [LoanController::class, 'index']);
-});

@@ -52,9 +52,6 @@ class BookService
 
     public function delete(int $id)
     {
-        //TODO
-        //add validation if book still on loan
-
         return $this->book->delete($id);
     }
 

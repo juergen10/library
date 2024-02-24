@@ -49,4 +49,9 @@ class ReturnBookRepository implements ReturnBookRepositoryInterface
     {
         ReturnBook::find($id)->update($data);
     }
+
+    public function store(array $data)
+    {
+        return ReturnBook::insert($data);
+    }
 }

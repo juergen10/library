@@ -5,16 +5,21 @@ namespace App\Http\Controllers;
 use App\Constants\PaginationConstant;
 use App\Response\Response;
 use App\Services\BookService;
+use App\Services\LoanService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class BookController extends Controller
 {
     protected $bookService;
+    protected $loanService;
 
-    public function __construct(BookService $bookService)
-    {
+    public function __construct(
+        BookService $bookService,
+        LoanService $loanService
+    ) {
         $this->bookService = $bookService;
+        $this->loanService = $loanService;
     }
 
     /**
@@ -142,6 +147,12 @@ class BookController extends Controller
      */
     public function destroy(int $id)
     {
+        $loan = $this->loanService->getLoanBook($id);
+
+        if (null != $loan) {
+            return Response::message('book_on_loan');
+        }
+
         $book = $this->bookService->delete($id);
         return Response::send(204);
     }

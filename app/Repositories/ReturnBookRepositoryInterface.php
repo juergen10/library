@@ -32,4 +32,6 @@ interface ReturnBookRepositoryInterface
      * @param array
      */
     public function update($id, array $data);
+
+    public function store(array $data);
 }

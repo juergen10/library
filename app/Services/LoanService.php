@@ -58,4 +58,9 @@ class LoanService
             throw $th;
         }
     }
+
+    public function getLoanBook(int $id)
+    {
+        return $this->loan->getLoanBook($id);
+    }
 }

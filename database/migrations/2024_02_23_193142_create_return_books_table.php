@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('return_books', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('loan_id');
-            $table->date('date_return');
-            $table->boolean('is_fine');
+            $table->datetime('date_return');
+            $table->boolean('is_fine')->default(1);
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
